@@ -41,6 +41,12 @@ public class MainActivity extends AppCompatActivity {
     private Button groupNameOk;
     private ConstraintLayout constraintLayout;
     private boolean isHamMenuOpen;
+    private Button taskOk;
+    private Button timeChoose;
+    private Button dateChoose;
+    private EditText taskTitle;
+    private EditText taskDetail;
+    private LinearLayout newTaskBox;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,6 +81,12 @@ public class MainActivity extends AppCompatActivity {
         groupNameInput = findViewById(R.id.groupNameInput);
         groupNameOk = findViewById(R.id.groupNameOk);
         isHamMenuOpen = false;
+        taskOk = findViewById(R.id.taskOk);
+        taskTitle = findViewById(R.id.taskTitle);
+        taskDetail = findViewById(R.id.taskDetail);
+        timeChoose = findViewById(R.id.timeChoose);
+        dateChoose = findViewById(R.id.dateChoose);
+        newTaskBox = findViewById(R.id.newTaskBox);
         //
 
         List<Button> buttonList = List.of(addNewReminder);
@@ -88,7 +100,7 @@ public class MainActivity extends AppCompatActivity {
             animator.setDuration(300);
             animator.addUpdateListener(animation -> {
                 int animatedValue = (int) animation.getAnimatedValue();
-                constraintSet.connect(hamMenu.getId(), ConstraintSet.END, ConstraintSet.PARENT_ID, ConstraintSet.END, (int)(animatedValue * getResources().getDisplayMetrics().density));
+                constraintSet.connect(hamMenu.getId(), ConstraintSet.END, ConstraintSet.PARENT_ID, ConstraintSet.END, (int) (animatedValue * getResources().getDisplayMetrics().density));
                 constraintSet.applyTo(constraintLayout);
             });
             animator.start();
@@ -101,13 +113,13 @@ public class MainActivity extends AppCompatActivity {
             animator.setDuration(300);
             animator.addUpdateListener(animation -> {
                 int animatedValue = (int) animation.getAnimatedValue();
-                constraintSet.connect(hamMenu.getId(), ConstraintSet.END, ConstraintSet.PARENT_ID, ConstraintSet.END, (int)(animatedValue * getResources().getDisplayMetrics().density));
+                constraintSet.connect(hamMenu.getId(), ConstraintSet.END, ConstraintSet.PARENT_ID, ConstraintSet.END, (int) (animatedValue * getResources().getDisplayMetrics().density));
                 constraintSet.applyTo(constraintLayout);
             });
             animator.start();
         });
-        addNewGroup.setOnClickListener(event->{
-            if(groupNameBox.getY()<0) {
+        addNewGroup.setOnClickListener(event -> {
+            if (groupNameBox.getY() < 0) {
                 ConstraintSet constraintSet = new ConstraintSet();
                 constraintSet.clone(constraintLayout);
                 ValueAnimator animator = ValueAnimator.ofInt(-300, 250);
@@ -120,7 +132,7 @@ public class MainActivity extends AppCompatActivity {
                 animator.start();
             }
         });
-        groupNameOk.setOnClickListener(event->{
+        groupNameOk.setOnClickListener(event -> {
             if (!groupNameInput.getText().toString().isEmpty()) {
                 groupList.addView(abdoll.getAppButton(this, groupNameInput.getText().toString(), 72));
                 ConstraintSet constraintSet = new ConstraintSet();
@@ -139,19 +151,47 @@ public class MainActivity extends AppCompatActivity {
             }
 
         });
-        uncType.setOnClickListener(event->{
+        dateChoose.setOnClickListener(event -> {
             DatePickerDialog datePicker = new DatePickerDialog(this, (view, year, month, dayOfMonth) -> {
                 String userDate = year + "-" + (month + 1) + "-" + dayOfMonth;
                 Toast.makeText(this, "Selected Date: " + userDate, Toast.LENGTH_SHORT).show();
             }, yearNow, monthNow, dayNow);
             datePicker.show();
         });
-        cType.setOnClickListener(event->{
+        timeChoose.setOnClickListener(event -> {
             TimePickerDialog timePicker = new TimePickerDialog(this, (view, hourOfDay, minute) -> {
                 String userTime = hourOfDay + ":" + minute;
                 Toast.makeText(this, "Selected Time: " + userTime, Toast.LENGTH_SHORT).show();
             }, 12, 0, true);
             timePicker.show();
+        });
+        addNewReminder.setOnClickListener(event -> {
+            if (groupNameBox.getY() < 0) {
+                ConstraintSet constraintSet = new ConstraintSet();
+                constraintSet.clone(constraintLayout);
+                ValueAnimator animator = ValueAnimator.ofInt(-400, 200);
+                animator.setDuration(300);
+                animator.addUpdateListener(animation -> {
+                    int animatedValue = (int) animation.getAnimatedValue();
+                    constraintSet.connect(newTaskBox.getId(), ConstraintSet.BOTTOM, ConstraintSet.PARENT_ID, ConstraintSet.BOTTOM, (int) (animatedValue * getResources().getDisplayMetrics().density));
+                    constraintSet.applyTo(constraintLayout);
+                });
+                animator.start();
+            }
+        });
+        taskOk.setOnClickListener(event -> {
+            if (groupNameBox.getY() < 0) {
+                ConstraintSet constraintSet = new ConstraintSet();
+                constraintSet.clone(constraintLayout);
+                ValueAnimator animator = ValueAnimator.ofInt(200, -400);
+                animator.setDuration(300);
+                animator.addUpdateListener(animation -> {
+                    int animatedValue = (int) animation.getAnimatedValue();
+                    constraintSet.connect(newTaskBox.getId(), ConstraintSet.BOTTOM, ConstraintSet.PARENT_ID, ConstraintSet.BOTTOM, (int) (animatedValue * getResources().getDisplayMetrics().density));
+                    constraintSet.applyTo(constraintLayout);
+                });
+                animator.start();
+            }
         });
     }
     @Override

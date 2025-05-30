@@ -440,9 +440,10 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/newTaskBox"
         android:layout_width="match_parent"
         android:layout_height="400dp"
-        android:layout_marginBottom="200dp"
+        android:layout_marginBottom="-400dp"
         android:background="@drawable/window"
         android:gravity="center"
         android:orientation="vertical"
