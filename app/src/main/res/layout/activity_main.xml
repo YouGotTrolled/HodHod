@@ -7,51 +7,23 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <LinearLayout
-        android:id="@+id/hh"
+    <ImageView
+        android:id="@+id/imageView6"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/bg1"
-        android:orientation="vertical"
-        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout2">
+        app:srcCompat="@drawable/background" />
 
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/linearLayout3"
-        android:layout_width="match_parent"
-        android:layout_height="72dp"
-        android:background="@drawable/border"
-        android:orientation="horizontal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
-
-    <LinearLayout
-        android:id="@+id/linearLayout2"
-        android:layout_width="match_parent"
-        android:layout_height="72dp"
-        android:background="@drawable/border"
-        android:orientation="horizontal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout3" />
-
-    <LinearLayout
-        android:id="@+id/linearLayout"
+    <ImageView
+        android:id="@+id/imageView2"
         android:layout_width="match_parent"
         android:layout_height="120dp"
-        android:background="@drawable/border"
-        android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-
-    </LinearLayout>
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/border" />
 
     <ImageView
         android:id="@+id/imageView"
@@ -60,8 +32,8 @@
         android:layout_marginStart="5dp"
         android:layout_marginTop="5dp"
         android:layout_weight="1"
-        app:layout_constraintStart_toStartOf="@+id/linearLayout"
-        app:layout_constraintTop_toTopOf="@+id/linearLayout"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/imageView2"
         app:srcCompat="@drawable/logo" />
 
     <TextView
@@ -76,6 +48,134 @@
         android:textSize="32dp"
         app:layout_constraintStart_toEndOf="@+id/imageView"
         app:layout_constraintTop_toTopOf="@+id/imageView" />
+
+    <ImageView
+        android:id="@+id/hamPic"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="5dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/imageView"
+        app:srcCompat="@drawable/ham" />
+
+    <Button
+        android:id="@+id/button4"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="26dp"
+        android:layout_marginEnd="27dp"
+        android:backgroundTint="@android:color/transparent"
+        android:text="Button"
+        android:textColor="@android:color/transparent"
+        app:layout_constraintEnd_toEndOf="@+id/hamPic"
+        app:layout_constraintTop_toTopOf="@+id/hamPic" />
+
+    <HorizontalScrollView
+        android:id="@+id/groupList"
+        android:layout_width="match_parent"
+        android:layout_height="72dp"
+        android:background="@drawable/border"
+        app:layout_constraintEnd_toEndOf="@+id/imageView6"
+        app:layout_constraintStart_toStartOf="@+id/imageView6"
+        app:layout_constraintTop_toBottomOf="@+id/imageView2">
+
+        <LinearLayout
+            android:id="@+id/groupListLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <FrameLayout
+                android:id="@+id/addgroup"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:id="@+id/imageView7"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:srcCompat="@drawable/border" />
+
+                <Button
+                    android:id="@+id/addgroupB"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:backgroundTint="@android:color/transparent"
+                    android:insetTop="0dp"
+                    android:insetBottom="0dp"
+                    android:text="+"
+                    android:textColor="@color/text1"
+                    android:textSize="22dp" />
+            </FrameLayout>
+
+        </LinearLayout>
+    </HorizontalScrollView>
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="72dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/groupList">
+
+        <ImageView
+            android:id="@+id/imageViewLeft"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:scaleType="centerCrop"
+            android:src="@drawable/border" />
+
+        <ImageView
+            android:id="@+id/imageViewRight"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:scaleType="centerCrop"
+            android:src="@drawable/border" />
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/linearLayout1"
+        android:layout_width="match_parent"
+        android:layout_height="72dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/groupList">
+
+        <Button
+            android:id="@+id/buttonLeft"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:backgroundTint="@android:color/transparent"
+            android:insetTop="0dp"
+            android:insetBottom="0dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/border"
+            android:textSize="20dp"
+            android:textColor="@color/text1"
+            android:text="Uncompeleted" />
+
+        <Button
+            android:id="@+id/buttonRight"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:backgroundTint="@android:color/transparent"
+            android:insetTop="0dp"
+            android:insetBottom="0dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/border"
+            android:textSize="20dp"
+            android:textColor="@color/text1"
+            android:text="Compeleted" />
+    </LinearLayout>
 
     <Button
         android:id="@+id/addNewReminder"
@@ -93,15 +193,377 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
-    <Button
-        android:id="@+id/button4"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginEnd="5dp"
-        android:text="Button"
-        android:background="@drawable/hamm"
-        app:layout_constraintEnd_toEndOf="@+id/linearLayout"
-        app:layout_constraintTop_toTopOf="@+id/imageView" />
+    <TextView
+        android:id="@+id/temp255"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="150dp"
+        android:textSize="32dp"
+        android:textColor="@color/text1"
+        android:text="TextView"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <ScrollView
+        android:id="@+id/hamMenu"
+        android:layout_width="280dp"
+        android:layout_height="match_parent"
+        android:layout_marginEnd="-280dp"
+        android:background="@drawable/background"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"
+        tools:visibility="gone">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <FrameLayout
+                    android:layout_width="80dp"
+                    android:layout_height="80dp">
+
+                    <ImageView
+                        android:id="@+id/imageViewHIde"
+                        android:layout_width="80dp"
+                        android:layout_height="80dp"
+                        app:srcCompat="@drawable/hide" />
+
+                    <Button
+                        android:id="@+id/hideHamMenu"
+                        android:layout_width="80dp"
+                        android:layout_height="80dp"
+                        android:backgroundTint="@android:color/transparent"
+                        android:text="Button"
+                        android:textColor="@android:color/transparent" />
+
+                </FrameLayout>
+
+                <TextView
+                    android:id="@+id/textView4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="Options"
+                    android:textColor="@color/text1"
+                    android:textSize="55dp" />
+            </LinearLayout>
+
+            <FrameLayout
+                android:layout_width="280dp"
+                android:layout_height="80dp">
+
+                <ImageView
+                    android:id="@+id/imageView4"
+                    android:layout_width="280dp"
+                    android:layout_height="80dp"
+                    app:srcCompat="@drawable/border" />
+
+                <Button
+                    android:id="@+id/option1"
+                    android:layout_width="280dp"
+                    android:layout_height="80dp"
+                    android:backgroundTint="@android:color/transparent"
+                    android:text="Button"
+                    android:textColor="@color/text1"
+                    android:textSize="32dp" />
+            </FrameLayout>
+
+            <FrameLayout
+                android:layout_width="280dp"
+                android:layout_height="80dp">
+
+                <ImageView
+                    android:id="@+id/imageView5"
+                    android:layout_width="280dp"
+                    android:layout_height="80dp"
+                    app:srcCompat="@drawable/border" />
+
+                <Button
+                    android:id="@+id/option2"
+                    android:layout_width="280dp"
+                    android:layout_height="80dp"
+                    android:backgroundTint="@android:color/transparent"
+                    android:text="Button"
+                    android:textColor="@color/text1"
+                    android:textSize="32dp" />
+            </FrameLayout>
+
+            <FrameLayout
+                android:layout_width="280dp"
+                android:layout_height="80dp">
+
+                <ImageView
+                    android:id="@+id/imageView11"
+                    android:layout_width="280dp"
+                    android:layout_height="80dp"
+                    app:srcCompat="@drawable/border" />
+
+                <Button
+                    android:id="@+id/option3"
+                    android:layout_width="280dp"
+                    android:layout_height="80dp"
+                    android:backgroundTint="@android:color/transparent"
+                    android:text="Button"
+                    android:textColor="@color/text1"
+                    android:textSize="32dp" />
+            </FrameLayout>
+
+            <FrameLayout
+                android:layout_width="280dp"
+                android:layout_height="80dp">
+
+                <ImageView
+                    android:id="@+id/imageView12"
+                    android:layout_width="280dp"
+                    android:layout_height="80dp"
+                    app:srcCompat="@drawable/border" />
+
+                <Button
+                    android:id="@+id/option4"
+                    android:layout_width="280dp"
+                    android:layout_height="80dp"
+                    android:backgroundTint="@android:color/transparent"
+                    android:text="Button"
+                    android:textColor="@color/text1"
+                    android:textSize="32dp" />
+            </FrameLayout>
+
+            <FrameLayout
+                android:layout_width="280dp"
+                android:layout_height="80dp">
+
+                <ImageView
+                    android:id="@+id/imageView13"
+                    android:layout_width="280dp"
+                    android:layout_height="80dp"
+                    app:srcCompat="@drawable/border" />
+
+                <Button
+                    android:id="@+id/option5"
+                    android:layout_width="280dp"
+                    android:layout_height="80dp"
+                    android:backgroundTint="@android:color/transparent"
+                    android:text="Button"
+                    android:textColor="@color/text1"
+                    android:textSize="32dp" />
+            </FrameLayout>
+
+            <FrameLayout
+                android:layout_width="280dp"
+                android:layout_height="80dp">
+
+                <ImageView
+                    android:id="@+id/imageView14"
+                    android:layout_width="280dp"
+                    android:layout_height="80dp"
+                    app:srcCompat="@drawable/border" />
+
+                <Button
+                    android:id="@+id/option6"
+                    android:layout_width="280dp"
+                    android:layout_height="80dp"
+                    android:backgroundTint="@android:color/transparent"
+                    android:text="Button"
+                    android:textColor="@color/text1"
+                    android:textSize="32dp" />
+            </FrameLayout>
+        </LinearLayout>
+    </ScrollView>
+
+    <LinearLayout
+        android:id="@+id/groupNameBox"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:layout_marginTop="-300dp"
+        android:background="@drawable/window"
+        android:gravity="center"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:visibility="gone">
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_margin="6dp"
+            android:gravity="center"
+            android:text="Group Name"
+            android:textColor="@color/text1"
+            android:textSize="32dp" />
+
+        <EditText
+            android:id="@+id/groupNameInput"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_margin="16dp"
+            android:backgroundTint="@color/bg2"
+            android:ems="10"
+            android:gravity="center"
+            android:hint="Enter your name"
+            android:inputType="text"
+            android:textColor="@color/text2"
+            android:textColorHint="@color/text2"
+            android:textSize="32dp" />
+
+        <FrameLayout
+            android:layout_width="280dp"
+            android:layout_height="80dp"
+            android:layout_margin="16dp">
+
+            <ImageView
+                android:id="@+id/imageView15"
+                android:layout_width="280dp"
+                android:layout_height="80dp"
+                app:srcCompat="@drawable/border" />
+
+            <Button
+                android:id="@+id/groupNameOk"
+                android:layout_width="280dp"
+                android:layout_height="80dp"
+                android:backgroundTint="@android:color/transparent"
+                android:text="Done"
+                android:textColor="@color/text1"
+                android:textSize="32dp" />
+        </FrameLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="400dp"
+        android:layout_marginBottom="200dp"
+        android:background="@drawable/window"
+        android:gravity="center"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <EditText
+            android:id="@+id/taskTitle"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_margin="16dp"
+            android:backgroundTint="@color/bg2"
+            android:gravity="center"
+            android:hint="New Task"
+            android:inputType="text"
+            android:textColor="@color/text2"
+            android:textColorHint="@color/text2"
+            android:textSize="32dp" />
+
+        <EditText
+            android:id="@+id/taskDetail"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_margin="16dp"
+            android:backgroundTint="@color/bg2"
+            android:gravity="center"
+            android:hint="Details"
+            android:inputType="text"
+            android:textColor="@color/text2"
+            android:textColorHint="@color/text2"
+            android:textSize="16dp" />
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="72dp"
+            android:layout_margin="16dp">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="72dp"
+                android:orientation="horizontal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/groupList">
+
+                <ImageView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/border" />
+
+                <ImageView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/border" />
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="72dp"
+                android:orientation="horizontal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/groupList">
+
+                <Button
+                    android:id="@+id/dateChoose"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:backgroundTint="@android:color/transparent"
+                    android:insetTop="0dp"
+                    android:insetBottom="0dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/border"
+                    android:textSize="30dp"
+                    android:textColor="@color/text1"
+                    android:text="Date" />
+
+                <Button
+                    android:id="@+id/timeChoose"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:backgroundTint="@android:color/transparent"
+                    android:insetTop="0dp"
+                    android:insetBottom="0dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/border"
+                    android:textSize="30dp"
+                    android:textColor="@color/text1"
+                    android:text="Time" />
+            </LinearLayout>
+        </FrameLayout>
+
+        <FrameLayout
+            android:layout_width="200dp"
+            android:layout_height="60dp"
+            android:layout_margin="4dp">
+
+            <ImageView
+                android:layout_width="200dp"
+                android:layout_height="60dp"
+                app:srcCompat="@drawable/border" />
+
+            <Button
+                android:id="@+id/taskOk"
+                android:layout_width="200dp"
+                android:layout_height="60dp"
+                android:backgroundTint="@android:color/transparent"
+                android:text="Done"
+                android:textColor="@color/text1"
+                android:textSize="32dp" />
+        </FrameLayout>
+
+
+    </LinearLayout>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
