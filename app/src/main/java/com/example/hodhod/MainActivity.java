@@ -146,6 +146,8 @@ public class MainActivity extends AppCompatActivity {
         groupNameOk.setOnClickListener(event -> {
             if (!groupNameInput.getText().toString().isEmpty()) {
                 isGroupNameBoxOpen = false;
+                abdoll.getGroups().add(new TaskGroup(groupNameInput.getText().toString()));
+                abdoll.saveGroups();
                 groupList.addView(abdoll.getAppButton(this, groupNameInput.getText().toString(), 72));
                 ConstraintSet constraintSet = new ConstraintSet();
                 constraintSet.clone(constraintLayout);
@@ -220,23 +222,9 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         //
-        File test = new File(getFilesDir(), "myfile.txt");
-        try {
-            test.createNewFile();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-        Toast.makeText(this, test.getAbsolutePath(), Toast.LENGTH_SHORT).show();
-        try(PrintWriter writer = new PrintWriter(new FileOutputStream(test.getAbsoluteFile()))){
-            writer.write("kir");
-        }catch (Exception e){
-
-        }
-        try(BufferedReader writer = new BufferedReader(new FileReader(test.getAbsoluteFile()))){
-            String temp = writer.readLine();
-            Toast.makeText(this, temp, Toast.LENGTH_SHORT).show();
-        }catch (Exception e){
-
+        int i = 0;
+        while(abdoll.getGroups().size()>i){
+            groupList.addView(abdoll.getAppButton(this, abdoll.getGroups().get(i++).getName(), 72));
         }
     }
 

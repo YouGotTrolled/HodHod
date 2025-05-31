@@ -8,25 +8,58 @@ import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 
+import androidx.constraintlayout.widget.Group;
+
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.lang.reflect.Type;
+import java.util.ArrayList;
+import java.util.List;
 
 public class AppHelper {
     private String userInputDate ;
     private String userInputTime ;
-    private File groups;
+    private List<TaskGroup> groups;
+    private Context context;
+    private int groupIndex;
+    private int taskIndex;
 
     AppHelper(Context context){
         userInputDate = "";
         userInputTime = "";
-        groups = new File(context.getFilesDir(), "groups");
-        groups.mkdir();
+        this.context = context;
+        try {
+            (new File(context.getFilesDir(), "groups.json")).createNewFile();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        groups = new ArrayList<>();
+        loadGroups();
     }
 
-
-    public File getGroups() {
+    public int getGroupIndex() {
+        return groupIndex;
+    }
+    public void setGroupIndex(int groupIndex) {
+        this.groupIndex = groupIndex;
+    }
+    public int getTaskIndex() {
+        return taskIndex;
+    }
+    public void setTaskIndex(int taskIndex) {
+        this.taskIndex = taskIndex;
+    }
+    public List<TaskGroup> getGroups() {
         return groups;
     }
-    public void setGroups(File groups) {
+    public void setGroups(List<TaskGroup> groups) {
         this.groups = groups;
     }
     public String getUserInputDate() {
@@ -96,5 +129,24 @@ public class AppHelper {
     public void resetUserDateAndTime(){
         userInputDate = "";
         userInputTime = "";
+    }
+    public void loadGroups(){
+        Gson gson = new Gson();
+        Type listType = new TypeToken<List<TaskGroup>>() {}.getType();
+        try(BufferedReader reader = new BufferedReader(new FileReader(context.getFilesDir()+"\\groups.json"))){
+            groups = gson.fromJson(reader , listType);
+            if(groups==null)
+                groups = new ArrayList<>();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    public void saveGroups(){
+        Gson gson = new Gson();
+        try(PrintWriter writer = new PrintWriter(new FileOutputStream(context.getFilesDir()+"\\groups.json"))){
+            writer.write(gson.toJson(groups));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
