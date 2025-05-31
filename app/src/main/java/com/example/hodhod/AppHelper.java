@@ -3,11 +3,16 @@ package com.example.hodhod;
 import android.content.Context;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
+import android.view.Gravity;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 
+import androidx.appcompat.content.res.AppCompatResources;
 import androidx.constraintlayout.widget.Group;
 
 import com.google.gson.Gson;
@@ -75,7 +80,7 @@ public class AppHelper {
         this.userInputTime = userInputTime;
     }
 
-    public FrameLayout getAppButton(Context context, String content , int x , int y){
+    public FrameLayout getAppButton(String content , int x , int y){
         FrameLayout body;
         Button button;
         ImageView image;
@@ -101,7 +106,7 @@ public class AppHelper {
         body.addView(button);
         return body;
     }
-    public FrameLayout getAppButton(Context context, String content , int y){
+    public FrameLayout getAppButton(String content , int y){
         FrameLayout body;
         Button button;
         ImageView image;
@@ -148,5 +153,64 @@ public class AppHelper {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+    public FrameLayout getTaskButton(String content ,boolean checkBoxState , int y){
+        FrameLayout body;
+        Button button;
+        CheckBox checkBox;
+        LinearLayout linearLayout;
+        ImageView image;
+        y =(int) (y * context.getResources().getDisplayMetrics().density);
+        FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, y);
+        //
+        body=new FrameLayout(context);
+        body.setLayoutParams(params);
+        //
+        image=new ImageView(context);
+        image.setLayoutParams(params);
+        image.setImageDrawable(AppCompatResources.getDrawable(context , R.drawable.border));
+        //
+        linearLayout = new LinearLayout(context);
+        linearLayout.setLayoutParams(params);
+        //
+        checkBox = new CheckBox(context);
+        ColorStateList colorStateList = new ColorStateList(
+                new int[][]{
+                        new int[]{android.R.attr.state_checked},
+                        new int[]{-android.R.attr.state_checked}
+                },
+                new int[]{
+                        Color.parseColor("#03DAC6"), // Color when checked
+                        Color.parseColor("#03DAC6")  // Color when unchecked
+                }
+        );
+        checkBox.setButtonTintList(colorStateList);
+        checkBox.setChecked(checkBoxState);
+        LinearLayout.LayoutParams params2 = new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.WRAP_CONTENT,
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                0.0f
+        );
+        checkBox.setLayoutParams(params2);
+        checkBox.setText("");
+        //
+        button=new Button(context);
+        button.setText(content);
+        button.setTextSize((int)(10*context.getResources().getDisplayMetrics().density));
+        button.setTextColor(Color.parseColor("#E0E0E0"));
+        button.setBackgroundTintList(ColorStateList.valueOf(Color.TRANSPARENT));
+        button.setGravity(Gravity.CENTER_VERTICAL);
+        LinearLayout.LayoutParams params3 = new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.WRAP_CONTENT,
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                1.0f
+        );
+        button.setLayoutParams(params3);
+        //
+        body.addView(image);
+        linearLayout.addView(checkBox);
+        linearLayout.addView(button);
+        body.addView(linearLayout);
+        return body;
     }
 }

@@ -5,14 +5,11 @@ import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.icu.util.Calendar;
 import android.os.Bundle;
-import android.view.View;
-import android.view.WindowManager;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
@@ -22,16 +19,6 @@ import androidx.constraintlayout.widget.ConstraintSet;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
-
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -58,6 +45,7 @@ public class MainActivity extends AppCompatActivity {
     private boolean isGroupNameBoxOpen;
     private boolean isNewTaskBoxOpen;
     private AppHelper abdoll;
+    private LinearLayout taskList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -99,6 +87,7 @@ public class MainActivity extends AppCompatActivity {
         newTaskBox = findViewById(R.id.newTaskBox);
         isGroupNameBoxOpen = false;
         isNewTaskBoxOpen = false;
+        taskList = findViewById(R.id.taskList);
         //
         hamMenuB.setOnClickListener(event -> {
             if (!isGroupNameBoxOpen && !isHamMenuOpen && !isNewTaskBoxOpen) {
@@ -148,7 +137,7 @@ public class MainActivity extends AppCompatActivity {
                 isGroupNameBoxOpen = false;
                 abdoll.getGroups().add(new TaskGroup(groupNameInput.getText().toString()));
                 abdoll.saveGroups();
-                groupList.addView(abdoll.getAppButton(this, groupNameInput.getText().toString(), 72));
+                groupList.addView(abdoll.getAppButton(groupNameInput.getText().toString(), 72));
                 ConstraintSet constraintSet = new ConstraintSet();
                 constraintSet.clone(constraintLayout);
                 ValueAnimator animator = ValueAnimator.ofInt(250, -300);
@@ -224,8 +213,19 @@ public class MainActivity extends AppCompatActivity {
         //
         int i = 0;
         while(abdoll.getGroups().size()>i){
-            groupList.addView(abdoll.getAppButton(this, abdoll.getGroups().get(i++).getName(), 72));
+            groupList.addView(abdoll.getAppButton(abdoll.getGroups().get(i++).getName(), 72));
         }
+        //
+        if(groupList.getChildCount()>1){
+            i = 1;
+            while(groupList.getChildCount()>i){
+                Button tempButton = ((Button) ((FrameLayout) groupList.getChildAt(i++)).getChildAt(1));
+                tempButton.setOnClickListener(event->{
+                    Toast.makeText(this, tempButton.getText().toString(), Toast.LENGTH_SHORT).show();
+                });
+            }
+        }
+        taskList.addView(abdoll.getTaskButton("test",false,72));
     }
 
     @Override
