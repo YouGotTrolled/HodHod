@@ -9,6 +9,28 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 
 public class AppHelper {
+    private String userInputDate ;
+    private String userInputTime ;
+
+    AppHelper(){
+        userInputDate = "";
+        userInputTime = "";
+    }
+
+
+    public String getUserInputDate() {
+        return userInputDate;
+    }
+    public void setUserInputDate(String userInputDate) {
+        this.userInputDate = userInputDate;
+    }
+    public String getUserInputTime() {
+        return userInputTime;
+    }
+    public void setUserInputTime(String userInputTime) {
+        this.userInputTime = userInputTime;
+    }
+
     public FrameLayout getAppButton(Context context, String content , int x , int y){
         FrameLayout body;
         Button button;
@@ -59,5 +81,9 @@ public class AppHelper {
         body.addView(image);
         body.addView(button);
         return body;
+    }
+    public void resetUserDateAndTime(){
+        userInputDate = "";
+        userInputTime = "";
     }
 }

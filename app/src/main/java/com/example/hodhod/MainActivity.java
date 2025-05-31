@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
@@ -33,7 +34,6 @@ public class MainActivity extends AppCompatActivity {
     private Button cType;
     private Button addNewReminder;
     private Button hideHamMenu;
-    private TextView temp;
     private ScrollView hamMenu;
     private LinearLayout groupList;
     private LinearLayout groupNameBox;
@@ -47,6 +47,9 @@ public class MainActivity extends AppCompatActivity {
     private EditText taskTitle;
     private EditText taskDetail;
     private LinearLayout newTaskBox;
+    private boolean isGroupNameBoxOpen;
+    private boolean isNewTaskBoxOpen;
+    private AppHelper abdoll;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,13 +69,12 @@ public class MainActivity extends AppCompatActivity {
         int hourNow = calendar.get(Calendar.HOUR_OF_DAY);
         int minuteNow = calendar.get(Calendar.MINUTE);
         //
-        AppHelper abdoll = new AppHelper();
+        abdoll = new AppHelper();
         hamMenuB = findViewById(R.id.button4);
         addNewGroup = findViewById(R.id.addgroupB);
         uncType = findViewById(R.id.buttonLeft);
         cType = findViewById(R.id.buttonRight);
         addNewReminder = findViewById(R.id.addNewReminder);
-        temp = findViewById(R.id.temp255);
         hamMenu = findViewById(R.id.hamMenu);
         hideHamMenu = findViewById(R.id.hideHamMenu);
         constraintLayout = findViewById(R.id.t);
@@ -87,23 +89,23 @@ public class MainActivity extends AppCompatActivity {
         timeChoose = findViewById(R.id.timeChoose);
         dateChoose = findViewById(R.id.dateChoose);
         newTaskBox = findViewById(R.id.newTaskBox);
+        isGroupNameBoxOpen = false;
+        isNewTaskBoxOpen = false;
         //
-
-        List<Button> buttonList = List.of(addNewReminder);
-        buttonList.forEach(o -> o.setOnClickListener(event -> temp.setText(String.valueOf(Math.random() * 100))));
-
         hamMenuB.setOnClickListener(event -> {
-            isHamMenuOpen = true;
-            ConstraintSet constraintSet = new ConstraintSet();
-            constraintSet.clone(constraintLayout);
-            ValueAnimator animator = ValueAnimator.ofInt(-280, 0);
-            animator.setDuration(300);
-            animator.addUpdateListener(animation -> {
-                int animatedValue = (int) animation.getAnimatedValue();
-                constraintSet.connect(hamMenu.getId(), ConstraintSet.END, ConstraintSet.PARENT_ID, ConstraintSet.END, (int) (animatedValue * getResources().getDisplayMetrics().density));
-                constraintSet.applyTo(constraintLayout);
-            });
-            animator.start();
+            if (!isGroupNameBoxOpen && !isHamMenuOpen && !isNewTaskBoxOpen) {
+                isHamMenuOpen = true;
+                ConstraintSet constraintSet = new ConstraintSet();
+                constraintSet.clone(constraintLayout);
+                ValueAnimator animator = ValueAnimator.ofInt(-280, 0);
+                animator.setDuration(300);
+                animator.addUpdateListener(animation -> {
+                    int animatedValue = (int) animation.getAnimatedValue();
+                    constraintSet.connect(hamMenu.getId(), ConstraintSet.END, ConstraintSet.PARENT_ID, ConstraintSet.END, (int) (animatedValue * getResources().getDisplayMetrics().density));
+                    constraintSet.applyTo(constraintLayout);
+                });
+                animator.start();
+            }
         });
         hideHamMenu.setOnClickListener(event -> {
             isHamMenuOpen = false;
@@ -119,7 +121,8 @@ public class MainActivity extends AppCompatActivity {
             animator.start();
         });
         addNewGroup.setOnClickListener(event -> {
-            if (groupNameBox.getY() < 0) {
+            if (!isGroupNameBoxOpen && !isHamMenuOpen && !isNewTaskBoxOpen) {
+                isGroupNameBoxOpen = true;
                 ConstraintSet constraintSet = new ConstraintSet();
                 constraintSet.clone(constraintLayout);
                 ValueAnimator animator = ValueAnimator.ofInt(-300, 250);
@@ -134,6 +137,7 @@ public class MainActivity extends AppCompatActivity {
         });
         groupNameOk.setOnClickListener(event -> {
             if (!groupNameInput.getText().toString().isEmpty()) {
+                isGroupNameBoxOpen = false;
                 groupList.addView(abdoll.getAppButton(this, groupNameInput.getText().toString(), 72));
                 ConstraintSet constraintSet = new ConstraintSet();
                 constraintSet.clone(constraintLayout);
@@ -153,20 +157,21 @@ public class MainActivity extends AppCompatActivity {
         });
         dateChoose.setOnClickListener(event -> {
             DatePickerDialog datePicker = new DatePickerDialog(this, (view, year, month, dayOfMonth) -> {
-                String userDate = year + "-" + (month + 1) + "-" + dayOfMonth;
-                Toast.makeText(this, "Selected Date: " + userDate, Toast.LENGTH_SHORT).show();
+                abdoll.setUserInputDate(year + "_" + (month + 1) + "_" + dayOfMonth);
+                Toast.makeText(this, "Selected Date: " + abdoll.getUserInputDate(), Toast.LENGTH_SHORT).show();
             }, yearNow, monthNow, dayNow);
             datePicker.show();
         });
         timeChoose.setOnClickListener(event -> {
             TimePickerDialog timePicker = new TimePickerDialog(this, (view, hourOfDay, minute) -> {
-                String userTime = hourOfDay + ":" + minute;
-                Toast.makeText(this, "Selected Time: " + userTime, Toast.LENGTH_SHORT).show();
+                abdoll.setUserInputTime(hourOfDay + "_" + minute);
+                Toast.makeText(this, "Selected Time: " + hourOfDay + ":" + minute, Toast.LENGTH_SHORT).show();
             }, 12, 0, true);
             timePicker.show();
         });
         addNewReminder.setOnClickListener(event -> {
-            if (groupNameBox.getY() < 0) {
+            if (!isGroupNameBoxOpen && !isHamMenuOpen && !isNewTaskBoxOpen) {
+                isNewTaskBoxOpen = true;
                 ConstraintSet constraintSet = new ConstraintSet();
                 constraintSet.clone(constraintLayout);
                 ValueAnimator animator = ValueAnimator.ofInt(-400, 200);
@@ -180,7 +185,12 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         taskOk.setOnClickListener(event -> {
-            if (groupNameBox.getY() < 0) {
+            if (!taskTitle.getText().toString().isEmpty() && !abdoll.getUserInputTime().isEmpty() && abdoll.getUserInputDate().isEmpty()) {
+                Toast.makeText(this, "please enter a date", Toast.LENGTH_SHORT).show();
+            } else if (taskTitle.getText().toString().isEmpty()) {
+                Toast.makeText(this, "please enter a task title", Toast.LENGTH_SHORT).show();
+            }else{
+                isNewTaskBoxOpen = false;
                 ConstraintSet constraintSet = new ConstraintSet();
                 constraintSet.clone(constraintLayout);
                 ValueAnimator animator = ValueAnimator.ofInt(200, -400);
@@ -191,12 +201,22 @@ public class MainActivity extends AppCompatActivity {
                     constraintSet.applyTo(constraintLayout);
                 });
                 animator.start();
+                if(!taskTitle.getText().toString().isEmpty() && abdoll.getUserInputTime().isEmpty()&& abdoll.getUserInputDate().isEmpty()){
+                    new Task(taskTitle.getText().toString(),taskDetail.getText().toString());
+                }else{
+                    new TimedTask(taskTitle.getText().toString(),taskDetail.getText().toString(),abdoll.getUserInputDate()+abdoll.getUserInputTime());
+                }
+                taskTitle.setText("");
+                taskDetail.setText("");
+                abdoll.resetUserDateAndTime();
             }
         });
     }
+
     @Override
     public void onBackPressed() {
-        if(groupNameBox.getY()>0) {
+        if (isGroupNameBoxOpen) {
+            isGroupNameBoxOpen = false;
             ConstraintSet constraintSet = new ConstraintSet();
             constraintSet.clone(constraintLayout);
             ValueAnimator animator = ValueAnimator.ofInt(250, -300);
@@ -207,20 +227,35 @@ public class MainActivity extends AppCompatActivity {
                 constraintSet.applyTo(constraintLayout);
             });
             animator.start();
-        }
-        else if (isHamMenuOpen) {
+        } else if (isHamMenuOpen) {
+            isHamMenuOpen = false;
             ConstraintSet constraintSet = new ConstraintSet();
             constraintSet.clone(constraintLayout);
             ValueAnimator animator = ValueAnimator.ofInt(0, -280);
             animator.setDuration(300);
             animator.addUpdateListener(animation -> {
                 int animatedValue = (int) animation.getAnimatedValue();
-                constraintSet.connect(hamMenu.getId(), ConstraintSet.END, ConstraintSet.PARENT_ID, ConstraintSet.END, (int)(animatedValue * getResources().getDisplayMetrics().density));
+                constraintSet.connect(hamMenu.getId(), ConstraintSet.END, ConstraintSet.PARENT_ID, ConstraintSet.END, (int) (animatedValue * getResources().getDisplayMetrics().density));
                 constraintSet.applyTo(constraintLayout);
             });
             animator.start();
-        }
-        else {
+        } else if (isNewTaskBoxOpen) {
+            abdoll.resetUserDateAndTime();
+            isNewTaskBoxOpen = false;
+            ConstraintSet constraintSet = new ConstraintSet();
+            constraintSet.clone(constraintLayout);
+            ValueAnimator animator = ValueAnimator.ofInt(200, -400);
+            animator.setDuration(300);
+            animator.addUpdateListener(animation -> {
+                int animatedValue = (int) animation.getAnimatedValue();
+                constraintSet.connect(newTaskBox.getId(), ConstraintSet.BOTTOM, ConstraintSet.PARENT_ID, ConstraintSet.BOTTOM, (int) (animatedValue * getResources().getDisplayMetrics().density));
+                constraintSet.applyTo(constraintLayout);
+            });
+            animator.start();
+            taskTitle.setText("");
+            taskDetail.setText("");
+            abdoll.resetUserDateAndTime();
+        } else {
             super.onBackPressed();
         }
     }
