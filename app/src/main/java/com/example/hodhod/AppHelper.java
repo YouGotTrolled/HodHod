@@ -8,16 +8,27 @@ import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 
+import java.io.File;
+
 public class AppHelper {
     private String userInputDate ;
     private String userInputTime ;
+    private File groups;
 
-    AppHelper(){
+    AppHelper(Context context){
         userInputDate = "";
         userInputTime = "";
+        groups = new File(context.getFilesDir(), "groups");
+        groups.mkdir();
     }
 
 
+    public File getGroups() {
+        return groups;
+    }
+    public void setGroups(File groups) {
+        this.groups = groups;
+    }
     public String getUserInputDate() {
         return userInputDate;
     }

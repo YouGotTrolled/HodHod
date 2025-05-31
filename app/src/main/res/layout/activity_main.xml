@@ -177,6 +177,60 @@
             android:text="Compeleted" />
     </LinearLayout>
 
+    <ScrollView
+        android:id="@+id/goodList"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="264dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:id="@+id/taskList"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="72dp">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:srcCompat="@drawable/border" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+
+                    <CheckBox
+                        android:id="@+id/checkBox2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_weight="0"
+                        android:buttonTint="@color/elements"
+                        android:text="" />
+
+                    <Button
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:backgroundTint="@android:color/transparent"
+                        android:insetTop="0dp"
+                        android:insetBottom="0dp"
+                        android:textSize="20dp"
+                        android:gravity="center_vertical"
+                        android:textColor="@color/text1"
+                        android:text="some good task" />
+                </LinearLayout>
+            </FrameLayout>
+        </LinearLayout>
+    </ScrollView>
+
     <Button
         android:id="@+id/addNewReminder"
         android:layout_width="80sp"
@@ -437,8 +491,7 @@
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:visibility="gone">
+        app:layout_constraintStart_toStartOf="parent">
 
         <EditText
             android:id="@+id/taskTitle"
@@ -480,6 +533,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/groupList">
 
                 <ImageView
+                    android:id="@+id/pp3"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
@@ -487,6 +541,7 @@
                     android:src="@drawable/border" />
 
                 <ImageView
+                    android:id="@+id/pp4"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
@@ -539,6 +594,7 @@
             android:layout_margin="4dp">
 
             <ImageView
+                android:id="@+id/pp5"
                 android:layout_width="200dp"
                 android:layout_height="60dp"
                 app:srcCompat="@drawable/border" />

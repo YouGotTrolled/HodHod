@@ -23,6 +23,14 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
@@ -69,7 +77,7 @@ public class MainActivity extends AppCompatActivity {
         int hourNow = calendar.get(Calendar.HOUR_OF_DAY);
         int minuteNow = calendar.get(Calendar.MINUTE);
         //
-        abdoll = new AppHelper();
+        abdoll = new AppHelper(this);
         hamMenuB = findViewById(R.id.button4);
         addNewGroup = findViewById(R.id.addgroupB);
         uncType = findViewById(R.id.buttonLeft);
@@ -211,6 +219,25 @@ public class MainActivity extends AppCompatActivity {
                 abdoll.resetUserDateAndTime();
             }
         });
+        //
+        File test = new File(getFilesDir(), "myfile.txt");
+        try {
+            test.createNewFile();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        Toast.makeText(this, test.getAbsolutePath(), Toast.LENGTH_SHORT).show();
+        try(PrintWriter writer = new PrintWriter(new FileOutputStream(test.getAbsoluteFile()))){
+            writer.write("kir");
+        }catch (Exception e){
+
+        }
+        try(BufferedReader writer = new BufferedReader(new FileReader(test.getAbsoluteFile()))){
+            String temp = writer.readLine();
+            Toast.makeText(this, temp, Toast.LENGTH_SHORT).show();
+        }catch (Exception e){
+
+        }
     }
 
     @Override
